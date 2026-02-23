@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AromaCraft | Premium Fragrances</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #000, #1c1c1c);
+        }
+
+        .card {
+            background: #1c1c1c;
+            border: none;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .price {
+            color: gold;
+            font-weight: bold;
+        }
+
+        .btn-gold {
+            background-color: gold;
+            color: black;
+            font-weight: 600;
+            border-radius: 20px;
+        }
+
+        .btn-gold:hover {
+            background-color: #e6c200;
+        }
+
+        footer {
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand fs-3 fw-bold" href="#">🌿 AromaCraft</a>
+        <a href="/add-product" class="btn btn-gold">+ Add Product</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h2 class="text-center mb-5">✨ Our Premium Collection ✨</h2>
+
+    <div class="row">
+
+        <% if(products.length > 0) { %>
+            <% products.forEach(product => { %>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 text-center h-100">
+                        <h4><%= product.name %></h4>
+                        <p class="mt-3">Luxury fragrance crafted for elegance.</p>
+
+                        <h5 class="price mt-3">₹ <%= product.price %></h5>
+
+                        <p class="mt-2">Stock: <%= product.stock %></p>
+
+                        <button class="btn btn-gold mt-3">Buy Now</button>
+                    </div>
+                </div>
+
+            <% }) %>
+        <% } else { %>
+
+            <div class="text-center">
+                <h4>No products available</h4>
+            </div>
+
+        <% } %>
+
+    </div>
+</div>
+
+<footer class="text-center text-white p-3 mt-5">
+    © 2026 AromaCraft | Crafted with Elegance
+</footer>
+
+</body>
+</html>

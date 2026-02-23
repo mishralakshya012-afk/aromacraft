@@ -1,0 +1,23 @@
+<%- include("partials/header") %>
+
+<h2>Your Cart</h2>
+
+<% if (items.length === 0) { %>
+  <p>No items in cart.</p>
+<% } else { %>
+
+  <% items.forEach(item => { %>
+    <div class="card">
+      <h3><%= item.productId.name %></h3>
+      <p>Price: ₹ <%= item.productId.price %></p>
+      <p>Quantity: <%= item.quantity %></p>
+    </div>
+  <% }) %>
+
+  <form action="/place-order" method="POST">
+    <button>Place Order</button>
+  </form>
+
+<% } %>
+
+<%- include("partials/footer") %>

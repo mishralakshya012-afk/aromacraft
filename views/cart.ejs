@@ -1,0 +1,36 @@
+<%- include("partials/header") %>
+
+<h2>Your Cart</h2>
+
+<% if(cart && cart.items.length > 0){ %>
+
+    <% cart.items.forEach(item => { %>
+        <div>
+            <h4><%= item.productId.name %></h4>
+            <p>₹<%= item.productId.price %></p>
+            <p>Quantity: <%= item.quantity %></p>
+
+            <form action="/increase/<%= item.productId._id %>" method="POST">
+                <button>+</button>
+            </form>
+
+            <form action="/decrease/<%= item.productId._id %>" method="POST">
+                <button>-</button>
+            </form>
+
+            <form action="/remove/<%= item.productId._id %>" method="POST">
+                <button>Remove</button>
+            </form>
+        </div>
+        <hr>
+    <% }) %>
+
+    <form action="/place-order" method="POST">
+        <button>Place Order</button>
+    </form>
+
+<% } else { %>
+    <p>Cart is empty</p>
+<% } %>
+
+<%- include("partials/footer") %>
