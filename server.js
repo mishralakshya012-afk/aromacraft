@@ -11,7 +11,6 @@ const path = require("path");
 // 🔐 Security Packages
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const xss = require("xss-clean");
 const hpp = require("hpp");
 const compression = require("compression");
 const morgan = require("morgan");
@@ -29,7 +28,6 @@ mongoose.connect(process.env.MONGO_URI)
 // Security Middlewares
 // ==============================
 app.use(helmet());
-app.use(xss());
 app.use(hpp());
 app.use(compression());
 
