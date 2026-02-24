@@ -1,22 +1,15 @@
-// middleware/authMiddleware.js
-
-// Check if user is logged in
+// Check if user logged in
 exports.isLoggedIn = (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-  next();
+    if (!req.session.user) {
+        return res.redirect("/auth/login");
+    }
+    next();
 };
 
-// Check if user is Admin
+// Check if user is admin
 exports.isAdmin = (req, res, next) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-
-  if (req.session.user.role !== "admin") {
-    return res.send("Access Denied: Admins Only");
-  }
-
-  next();
+    if (!req.session.user || req.session.user.role !== "admin") {
+        return res.redirect("/");
+    }
+    next();
 };

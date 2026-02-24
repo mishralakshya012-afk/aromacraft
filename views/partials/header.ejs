@@ -11,11 +11,19 @@
     <a href="/products">Products</a>
 
     <% if(user){ %>
-        <a href="/checkout">Cart</a>
-        <a href="/logout">Logout</a>
+        <a href="/cart">Cart</a>
+
+        <!-- Secure Logout (POST method) -->
+        <form action="/auth/logout" method="POST" style="display:inline;">
+            <button type="submit" 
+                style="background:none;border:none;color:blue;cursor:pointer;font-size:16px;">
+                Logout
+            </button>
+        </form>
+
     <% } else { %>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Register</a>
     <% } %>
 </nav>
 <hr>

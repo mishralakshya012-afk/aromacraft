@@ -1,10 +1,20 @@
+// ==============================
 // Load Environment Variables
+// ==============================
 require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const path = require("path");
+
+// 🔐 Security Packages
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const xss = require("xss-clean");
+const hpp = require("hpp");
+const compression = require("compression");
+const morgan = require("morgan");
 
 const app = express();
 
@@ -13,21 +23,49 @@ const app = express();
 // ==============================
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected Successfully"))
-    .catch(err => console.log(err));
+    .catch(err => console.error("MongoDB Error:", err));
 
 // ==============================
-// Middlewares
+// Security Middlewares
+// ==============================
+app.use(helmet());
+app.use(xss());
+app.use(hpp());
+app.use(compression());
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100
+});
+app.use(limiter);
+
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan("dev"));
+}
+
+// ==============================
+// Body Parsing
 // ==============================
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// ==============================
+// Session Configuration
+// ==============================
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24
+    }
 }));
 
+// ==============================
 // Static Folder
+// ==============================
 app.use(express.static(path.join(__dirname, "public")));
 
 // Make user available in all views
@@ -43,16 +81,25 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // ==============================
-// Routes
+// Routes (Startup Structure)
 // ==============================
-app.use("/", require("./routes/authRoutes"));
-app.use("/", require("./routes/productRoutes"));
-app.use("/", require("./routes/cartRoutes"));
-app.use("/", require("./routes/orderRoutes"));
+app.use("/auth", require("./routes/authRoutes"));
+app.use("/products", require("./routes/productRoutes"));
+app.use("/cart", require("./routes/cartRoutes"));
+app.use("/orders", require("./routes/orderRoutes"));
+app.use("/admin", require("./routes/adminRoutes"));
 
 // Home Route
 app.get("/", (req, res) => {
     res.render("index");
+});
+
+// ==============================
+// Global Error Handler
+// ==============================
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render("error", { error: "Something went wrong!" });
 });
 
 // ==============================
