@@ -36,7 +36,7 @@ exports.registerUser = async (req, res) => {
 
     // Store minimal session data (not full object)
     req.session.user = {
-      id: newUser._id,
+      _id: newUser._id,
       name: newUser.name,
       email: newUser.email,
       role: newUser.role
@@ -80,13 +80,17 @@ exports.loginUser = async (req, res) => {
 
     // Store minimal session info
     req.session.user = {
-      id: user._id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role
     };
 
-    res.redirect("/products");
+    if (user.role === "admin") {
+  res.redirect("/admin/dashboard");
+} else {
+  res.redirect("/products");
+}
 
   } catch (err) {
     console.error(err);

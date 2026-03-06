@@ -1,0 +1,16 @@
+<h1>Admin - Orders</h1>
+
+<table border="1">
+<tr>
+<th>User</th>
+<th>Total</th>
+</tr>
+
+<% orders.forEach(order => { %>
+<tr>
+<td><%= order.user %></td>
+<td><%= order.total %></td>
+</tr>
+<% }) %>
+
+</table>

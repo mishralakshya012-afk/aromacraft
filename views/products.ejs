@@ -53,14 +53,6 @@
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand fs-3 fw-bold" href="#">🌿 AromaCraft</a>
-        <a href="/add-product" class="btn btn-gold">+ Add Product</a>
-    </div>
-</nav>
-
 <div class="container mt-5">
 
     <h2 class="text-center mb-5">✨ Our Premium Collection ✨</h2>
@@ -79,7 +71,11 @@
 
                         <p class="mt-2">Stock: <%= product.stock %></p>
 
-                        <button class="btn btn-gold mt-3">Buy Now</button>
+                       <form action="/cart/add-to-cart/<%= product._id %>" method="POST">
+    <button type="submit" class="btn btn-gold mt-3">
+        Buy Now
+    </button>
+</form>
                     </div>
                 </div>
 

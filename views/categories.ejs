@@ -1,0 +1,26 @@
+<%- include("partials/header") %>
+
+<h2 style="text-align:center;">Shop by Category</h2>
+
+<% if (user && user.role === "admin") { %>
+  <div style="text-align:center; margin-bottom:20px;">
+    <a href="/products/add">
+      <button style="background:#dc3545; color:white; padding:10px 20px; border:none; border-radius:5px;">
+        Add Product
+      </button>
+    </a>
+  </div>
+<% } %>
+
+<div class="category-container">
+  <% categories.forEach(cat => { %>
+    <div class="card">
+      <h3><%= cat %></h3>
+      <a href="/products/category/<%= cat %>">
+        <button>View Products</button>
+      </a>
+    </div>
+  <% }) %>
+</div>
+
+<%- include("partials/footer") %>
