@@ -116,3 +116,12 @@ footer {
 .card button:hover {
   background-color: #555;
 }
+
+.sidebar .collapse a {
+  font-size: 14px;
+  padding-left: 40px;
+}
+
+.sidebar .collapse a:hover {
+  background: #475569;
+}

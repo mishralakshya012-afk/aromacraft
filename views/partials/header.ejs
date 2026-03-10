@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AromaCraft</title>
-    <link rel="stylesheet" href="/css/style.css">
+  <title>AromaCraft</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
 <nav>
-    <h2>AromaCraft 🌿</h2>
-    <a href="/products">Products</a>
 
-    <% if(user){ %>
-        <a href="/cart">Cart</a>
+  <a href="/">Home</a>
+<a href="/products">Products</a>
+<a href="/cart/checkout">Cart</a>
 
-        <!-- Secure Logout (POST method) -->
-        <form action="/auth/logout" method="POST" style="display:inline;">
-            <button type="submit" 
-                style="background:none;border:none;color:blue;cursor:pointer;font-size:16px;">
-                Logout
-            </button>
-        </form>
+<% if(!user){ %>
 
-    <% } else { %>
-        <a href="/auth/login">Login</a>
-        <a href="/auth/register">Register</a>
-    <% } %>
+<a href="/auth/login">Login</a>
+<a href="/auth/register">Register</a>
+
+<% } else { %>
+
+<span>Welcome <%= user.name %></span>
+
+<form action="/auth/logout" method="POST" style="display:inline;">
+    <button type="submit">Logout</button>
+</form>
+
+  <% } %>
+
+  <% if(user && user.role === "admin"){ %>
+<a href="/admin/dashboard">Admin Panel</a>
+<% } %>
 </nav>
+
+
 <hr>

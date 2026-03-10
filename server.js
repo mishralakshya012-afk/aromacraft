@@ -7,6 +7,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const path = require("path");
+const expressLayouts = require("express-ejs-layouts");
 
 // 🔐 Security Packages
 const helmet = require("helmet");
@@ -21,8 +22,8 @@ const app = express();
 // MongoDB Connection
 // ==============================
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected Successfully"))
-    .catch(err => console.error("MongoDB Error:", err));
+.then(() => console.log("MongoDB Connected Successfully"))
+.catch(err => console.error("MongoDB Error:", err));
 
 // ==============================
 // Security Middlewares
@@ -61,6 +62,11 @@ app.use(session({
     }
 }));
 
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
 // ==============================
 // Static Folder
 // ==============================
@@ -78,8 +84,13 @@ app.use((req, res, next) => {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(expressLayouts);
+
+// Default layout for frontend
+app.set("layout", "layouts/main");
+
 // ==============================
-// Routes (Startup Structure)
+// Routes
 // ==============================
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/products", require("./routes/productRoutes"));
@@ -87,9 +98,20 @@ app.use("/cart", require("./routes/cartRoutes"));
 app.use("/orders", require("./routes/orderRoutes"));
 app.use("/admin", require("./routes/adminRoutes"));
 
+// ==============================
 // Home Route
+// ==============================
 app.get("/", (req, res) => {
-    res.render("index");
+    res.render("shop/index");
+});
+
+// ==============================
+// 404 Page
+// ==============================
+app.use((req, res) => {
+    res.status(404).render("error", {
+        error: "Page not found"
+    });
 });
 
 // ==============================
@@ -97,7 +119,9 @@ app.get("/", (req, res) => {
 // ==============================
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).render("error", { error: "Something went wrong!" });
+    res.status(500).render("error", {
+        error: "Something went wrong!"
+    });
 });
 
 // ==============================
@@ -106,5 +130,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -4,14 +4,14 @@ const { isLoggedIn, isAdmin } = require("../middleware/authMiddleware");
 
 console.log("PRODUCT ROUTES FILE LOADED");
 
-// Static routes FIRST
+// Admin routes
 router.get("/add", isLoggedIn, isAdmin, productController.getAddProduct);
 router.post("/add", isLoggedIn, isAdmin, productController.postAddProduct);
 
-// Root
-router.get("/", productController.getCategories);
+// Show all products
+router.get("/", productController.getProducts);
 
-// Dynamic routes LAST
+// Dynamic route LAST
 router.get("/category/:name", productController.getProductsByCategory);
 
 module.exports = router;

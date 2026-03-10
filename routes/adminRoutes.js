@@ -1,26 +1,18 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
 const adminController = require("../controllers/adminController");
-const { isAdmin } = require("../middleware/authMiddleware");
 
-// Dashboard
-router.get("/dashboard", isAdmin, adminController.dashboard);
+// use admin layout
+router.use((req, res, next) => {
+  res.locals.layout = "layouts/admin";
+  next();
+});
 
-// Products
-router.get("/products", isAdmin, adminController.getProducts);
-router.get("/products/add", isAdmin, adminController.showAddProduct);
-router.post("/products/add", isAdmin, adminController.addProduct);
-
-// Edit Product
-router.get("/products/edit/:id", isAdmin, adminController.showEditProduct);
-router.post("/products/edit/:id", isAdmin, adminController.updateProduct);
-
-// Delete Product
-router.get("/products/delete/:id", isAdmin, adminController.deleteProduct);
-
-// Orders
-router.get("/orders", isAdmin, adminController.getOrders);
-
-// Users
-router.get("/users", isAdmin, adminController.getUsers);
+// Admin pages
+router.get("/dashboard", adminController.getDashboard);
+router.get("/products", adminController.getProducts);
+router.get("/orders", adminController.getOrders);
+router.get("/users", adminController.getUsers);
+router.get("/add-product", adminController.getAddProduct);
 
 module.exports = router;

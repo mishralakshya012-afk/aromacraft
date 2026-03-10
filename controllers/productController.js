@@ -1,66 +1,54 @@
 const Product = require("../models/Product");
 
-// ==============================
-// Show All Categories
-// ==============================
-exports.getCategories = async (req, res) => {
-  try {
-    const categories = await Product.distinct("category");
-    res.render("categories", { categories });
-  } catch (err) {
-    console.log(err);
-    res.send("Error loading categories");
-  }
+
+// Get all products
+exports.getProducts = async (req, res) => {
+
+  const products = await Product.find();
+
+  res.render("shop/products", {
+    products
+  });
+
 };
 
-// ==============================
-// Show Products by Category
-// ==============================
+
+// Get products by category
 exports.getProductsByCategory = async (req, res) => {
-  try {
-    const categoryName = req.params.name;
 
-    const products = await Product.find({
-      category: categoryName
-    });
+  const name = req.params.name;
 
-    res.render("products-by-category", {
-      products,
-      category: categoryName
-    });
+  const products = await Product.find({ category: name });
 
-  } catch (err) {
-    console.log(err);
-    res.send("Error loading products");
-  }
+  res.render("shop/products-by-category", {
+    products
+  });
+
 };
 
-// ==============================
-// Show Add Product Page
-// ==============================
+
+// Show add product page
 exports.getAddProduct = (req, res) => {
-  res.render("add-product");
+
+  res.render("admin/add-product");
+
 };
 
-// ==============================
-// Save New Product
-// ==============================
+
+// Handle add product
 exports.postAddProduct = async (req, res) => {
-  try {
-    const { name, description, price, stock, category } = req.body;
 
-    await Product.create({
-      name,
-      description,
-      price,
-      stock,
-      category
-    });
+  const { name, price, category, description } = req.body;
 
-    res.redirect("/products");
+  const product = new Product({
+    name,
+    price,
+    category,
+    description
+  });
 
-  } catch (err) {
-    console.log(err);
-    res.send("Error adding product");
-  }
+  await product.save();
+
+  res.redirect("/products");
+
 };

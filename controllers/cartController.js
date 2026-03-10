@@ -1,99 +1,100 @@
-const Cart = require("../models/Cart");
+const Product = require("../models/Product");
 
 // Add to Cart
 exports.addToCart = async (req, res) => {
-  try {
-    const userId = req.session.user._id;
-    const productId = req.params.id;
 
-    const existingItem = await Cart.findOne({ userId, productId });
+  const productId = req.params.id;
 
-    if (existingItem) {
-      await Cart.updateOne(
-        { _id: existingItem._id },
-        { $inc: { quantity: 1 } }
-      );
-    } else {
-      await Cart.create({
-        userId,
-        productId,
-        quantity: 1
-      });
-    }
-
-    res.redirect("/products");
-  } catch (err) {
-    console.log(err);
-    res.send("Add to cart error");
+  if (!req.session.cart) {
+    req.session.cart = [];
   }
+
+  const cart = req.session.cart;
+
+  const existing = cart.find(item => item.productId === productId);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+
+    const product = await Product.findById(productId);
+
+    cart.push({
+      productId: productId,
+      name: product.name,
+      price: product.price,
+      qty: 1
+    });
+
+  }
+
+  res.redirect("/cart/checkout");
+
 };
 
-// View Cart
-exports.viewCart = async (req, res) => {
-  try {
-    const items = await Cart.find({ userId: req.session.user._id })
-      .populate("productId");
 
-    res.render("checkout", { items });
-  } catch (err) {
-    console.log(err);
-    res.send("Cart load error");
-  }
+// View Cart
+exports.viewCart = (req, res) => {
+
+  const cart = req.session.cart || { items: [] };
+
+  res.render("shop/cart", {
+    cart
+  });
+
 };
 
 // Increase Quantity
-exports.increaseQty = async (req, res) => {
-  try {
-    await Cart.updateOne(
-      { _id: req.params.id },
-      { $inc: { quantity: 1 } }
-    );
-    res.redirect("/checkout");
-  } catch (err) {
-    console.log(err);
-    res.send("Increase error");
-  }
+exports.increaseQty = (req, res) => {
+
+  const id = req.params.id;
+  const cart = req.session.cart;
+
+  const item = cart.find(p => p.productId === id);
+
+  if (item) item.qty += 1;
+
+  res.redirect("/cart/checkout");
+
 };
+
 
 // Decrease Quantity
-exports.decreaseQty = async (req, res) => {
-  try {
-    const item = await Cart.findById(req.params.id);
+exports.decreaseQty = (req, res) => {
 
-    if (item.quantity > 1) {
-      await Cart.updateOne(
-        { _id: req.params.id },
-        { $inc: { quantity: -1 } }
-      );
-    } else {
-      await Cart.deleteOne({ _id: req.params.id });
-    }
+  const id = req.params.id;
+  const cart = req.session.cart;
 
-    res.redirect("/checkout");
-  } catch (err) {
-    console.log(err);
-    res.send("Decrease error");
+  const item = cart.find(p => p.productId === id);
+
+  if (item && item.qty > 1) {
+    item.qty -= 1;
   }
+
+  res.redirect("/cart/checkout");
+
 };
+
 
 // Remove Item
-exports.removeItem = async (req, res) => {
-  try {
-    await Cart.deleteOne({ _id: req.params.id });
-    res.redirect("/checkout");
-  } catch (err) {
-    console.log(err);
-    res.send("Remove error");
-  }
+exports.removeItem = (req, res) => {
+
+  const id = req.params.id;
+
+  req.session.cart = req.session.cart.filter(
+    item => item.productId !== id
+  );
+
+  res.redirect("/cart/checkout");
+
 };
 
+
 // Clear Cart
-exports.clearCart = async (req, res) => {
-  try {
-    await Cart.deleteMany({ userId: req.session.user._id });
-    res.redirect("/checkout");
-  } catch (err) {
-    console.log(err);
-    res.send("Clear cart error");
-  }
+exports.clearCart = (req, res) => {
+
+  req.session.cart = [];
+
+  res.redirect("/cart/checkout");
+
 };

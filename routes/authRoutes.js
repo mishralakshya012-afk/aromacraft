@@ -1,21 +1,13 @@
-const router = require("express").Router();
+const express = require("express");
+const router = express.Router();
 const authController = require("../controllers/authController");
 
-// ==============================
-// Show Pages
-// ==============================
-router.get("/register", authController.showRegister);
-router.get("/login", authController.showLogin);
+router.get("/login", authController.getLogin);
+router.post("/login", authController.postLogin);
 
-// ==============================
-// Handle Forms
-// ==============================
-router.post("/register", authController.registerUser);
-router.post("/login", authController.loginUser);
+router.get("/register", authController.getRegister);
+router.post("/register", authController.postRegister);
 
-// ==============================
-// Logout (POST for security)
-// ==============================
-router.post("/logout", authController.logoutUser);
+router.get("/logout", authController.logout);
 
 module.exports = router;
