@@ -19,12 +19,13 @@ exports.addToCart = async (req, res) => {
 
     const product = await Product.findById(productId);
 
-    cart.push({
-      productId: productId,
-      name: product.name,
-      price: product.price,
-      qty: 1
-    });
+    req.session.cart.push({
+  productId: product._id,
+  name: product.name,
+  price: product.price,
+  image: product.image,
+  qty: 1
+});
 
   }
 
@@ -38,8 +39,15 @@ exports.viewCart = (req, res) => {
 
   const cart = req.session.cart || [];
 
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+  });
+
   res.render("shop/cart", {
-    cart
+    cart,
+    total
   });
 
 };

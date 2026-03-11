@@ -4,21 +4,21 @@
 
 <% products.forEach(product => { %>
 
-<div class="card">
+<div>
 
-<h3>
-<a href="/products/<%= product._id %>">
-<%= product.name %>
-</a>
-</h3>
+  <% if(product.image){ %>
+  <img src="/uploads/<%= product.image %>" width="150">
+  <% } %>
 
-<p>₹ <%= product.price %></p>
+  <h4><%= product.name %></h4>
 
-<a href="/products/<%= product._id %>">
-<button>View Details</button>
-</a>
+  <p>₹ <%= product.price %></p>
+
+  <a href="/products/<%= product._id %>">View Product</a>
 
 </div>
+
+<hr>
 
 <% }) %>
 

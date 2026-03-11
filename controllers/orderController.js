@@ -4,37 +4,40 @@ const Order = require("../models/Order");
 
 // Place Order
 exports.placeOrder = async (req, res) => {
-  try {
-    const userId = req.session.user._id;
-    const cartItems = await Cart.find({ userId }).populate("productId");
 
-    if (cartItems.length === 0) {
-      return res.send("Cart is empty");
+  try {
+
+    const cart = req.session.cart || [];
+
+    if (cart.length === 0) {
+      return res.redirect("/cart/checkout");
     }
 
     let totalAmount = 0;
 
-    for (let item of cartItems) {
-      totalAmount += item.productId.price * item.quantity;
+    for (let item of cart) {
 
-      // Reduce stock
+      totalAmount += item.price * item.qty;
+
       await Product.updateOne(
-        { _id: item.productId._id },
-        { $inc: { stock: -item.quantity } }
+        { _id: item.productId },
+        { $inc: { stock: -item.qty } }
       );
+
     }
 
     await Order.create({
-      userId,
+      userId: req.session.user._id,
       totalAmount
     });
 
-    // Clear cart
-    await Cart.deleteMany({ userId });
+    req.session.cart = [];
 
-    res.send("✅ Order placed successfully");
+    res.render("shop/order-success");
+
   } catch (err) {
     console.log(err);
     res.send("Order error");
   }
+
 };

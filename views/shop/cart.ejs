@@ -2,30 +2,39 @@
 
 <% if(cart.length > 0){ %>
 
-  <% cart.forEach(item => { %>
+ <% cart.forEach(item => { %>
 
-    <div>
-      <h4><%= item.name %></h4>
-      <p>₹ <%= item.price %></p>
-      <p>Quantity: <%= item.qty %></p>
+<div>
 
-      <form action="/cart/increase/<%= item.productId %>" method="POST">
-        <button>+</button>
-      </form>
+  <% if(item.image){ %>
+  <img src="/uploads/<%= item.image %>" width="120">
+  <% } %>
 
-      <form action="/cart/decrease/<%= item.productId %>" method="POST">
-        <button>-</button>
-      </form>
+  <h4><%= item.name %></h4>
 
-      <form action="/cart/remove/<%= item.productId %>" method="POST">
-        <button>Remove</button>
-      </form>
+  <p>₹ <%= item.price %></p>
 
-    </div>
+  <p>Quantity: <%= item.qty %></p>
 
-    <hr>
+  <form action="/cart/increase/<%= item.productId %>" method="POST">
+    <button>+</button>
+  </form>
 
-  <% }) %>
+  <form action="/cart/decrease/<%= item.productId %>" method="POST">
+    <button>-</button>
+  </form>
+
+  <form action="/cart/remove/<%= item.productId %>" method="POST">
+    <button>Remove</button>
+  </form>
+
+</div>
+
+<hr>
+
+<% }) %>
+
+  <h3>Total: ₹ <%= total %></h3>
 
   <form action="/orders/place-order" method="POST">
     <button>Place Order</button>

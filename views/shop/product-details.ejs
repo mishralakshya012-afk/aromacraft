@@ -1,14 +1,15 @@
+<% if(product.image){ %>
+<img src="/uploads/<%= product.image %>" width="250">
+<% } %>
+
 <h2><%= product.name %></h2>
 
 <p>Price: ₹ <%= product.price %></p>
 
 <p>Category: <%= product.category %></p>
 
-<p>Description:</p>
-
-<p><%= product.description %></p>
+<p>Description: <%= product.description %></p>
 
 <form action="/cart/add-to-cart/<%= product._id %>" method="POST">
 <button>Add to Cart</button>
 </form>
-

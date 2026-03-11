@@ -26,7 +26,6 @@ exports.getProductsByCategory = async (req, res) => {
 
 };
 
-
 // Single product page
 exports.getProductDetails = async (req, res) => {
 
@@ -65,7 +64,8 @@ exports.postAddProduct = async (req, res) => {
     price,
     category,
     description,
-    stock
+    stock,
+    image: req.file ? req.file.filename : null
   });
 
   await product.save();
