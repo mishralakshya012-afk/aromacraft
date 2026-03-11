@@ -28,7 +28,7 @@ exports.addToCart = async (req, res) => {
 
   }
 
-  res.redirect("/cart/checkout");
+res.redirect(req.get("Referer") || "/products/categories");
 
 };
 
@@ -36,7 +36,7 @@ exports.addToCart = async (req, res) => {
 // View Cart
 exports.viewCart = (req, res) => {
 
-  const cart = req.session.cart || { items: [] };
+  const cart = req.session.cart || [];
 
   res.render("shop/cart", {
     cart

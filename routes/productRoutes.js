@@ -2,16 +2,20 @@ const router = require("express").Router();
 const productController = require("../controllers/productController");
 const { isLoggedIn, isAdmin } = require("../middleware/authMiddleware");
 
-console.log("PRODUCT ROUTES FILE LOADED");
-
 // Admin routes
 router.get("/add", isLoggedIn, isAdmin, productController.getAddProduct);
 router.post("/add", isLoggedIn, isAdmin, productController.postAddProduct);
 
-// Show all products
-router.get("/", productController.getProducts);
+// Categories page
+router.get("/categories", productController.getCategories);
 
-// Dynamic route LAST
+// Products of a category
 router.get("/category/:name", productController.getProductsByCategory);
+
+// Single product page
+router.get("/:id", productController.getProductDetails);
+
+// Optional: show all products
+router.get("/", productController.getProducts);
 
 module.exports = router;

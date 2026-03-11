@@ -1,32 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>AromaCraft Admin</title>
-<link rel="stylesheet" href="/css/admin.css">
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="/css/admin.css">
 </head>
-
 <body>
+  <nav>
+    <a href="/admin/dashboard">Dashboard</a>
+    <a href="/admin/products">Products</a>
+    <a href="/admin/orders">Orders</a>
+    <a href="/admin/users">Users</a>
+    <a href="/admin/add-product">Add Product</a>
+    <a href="/auth/logout">Logout</a>
+  </nav>
 
-<%- include('../partials/header') %>
-
-<div class="admin-container">
-
-<aside>
-<ul>
-<li><a href="/admin/dashboard">Dashboard</a></li>
-<li><a href="/admin/products">Products</a></li>
-<li><a href="/admin/orders">Orders</a></li>
-<li><a href="/admin/users">Users</a></li>
-</ul>
-</aside>
-
-<main>
-<%- body %>
-</main>
-
-</div>
-
-<%- include('../partials/footer') %>
-
+  <main>
+    <%- body %>
+  </main>
 </body>
 </html>

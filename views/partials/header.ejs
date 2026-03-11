@@ -9,7 +9,7 @@
 <nav>
 
   <a href="/">Home</a>
-<a href="/products">Products</a>
+<a href="/products/categories">Products</a>
 <a href="/cart/checkout">Cart</a>
 
 <% if(!user){ %>
@@ -21,7 +21,7 @@
 
 <span>Welcome <%= user.name %></span>
 
-<form action="/auth/logout" method="POST" style="display:inline;">
+<form action="/auth/logout" method="GET" style="display:inline;">
     <button type="submit">Logout</button>
 </form>
 

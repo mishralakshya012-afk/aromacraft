@@ -1,18 +1,30 @@
+// routes/adminRoutes.js
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 
-// use admin layout
+// Admin layout
 router.use((req, res, next) => {
   res.locals.layout = "layouts/admin";
   next();
 });
 
-// Admin pages
-router.get("/dashboard", adminController.getDashboard);
-router.get("/products", adminController.getProducts);
-router.get("/orders", adminController.getOrders);
-router.get("/users", adminController.getUsers);
-router.get("/add-product", adminController.getAddProduct);
+// ------------------------
+// Middleware: Protect Admin Routes
+// ------------------------
+function isAdmin(req, res, next) {
+  if (req.session.user && req.session.user.role === "admin") {
+    return next();
+  }
+  res.redirect("/auth/login");
+}
 
+// Admin pages
+router.get("/dashboard", isAdmin, adminController.getDashboard);
+router.get("/products", isAdmin, adminController.getProducts);
+router.get("/orders", isAdmin, adminController.getOrders);
+router.get("/users", isAdmin, adminController.getUsers);
+router.get("/add-product", isAdmin, adminController.getAddProduct);
+router.get("/edit-product/:id", isAdmin, adminController.getEditProduct);
+router.post("/edit-product/:id", isAdmin, adminController.postEditProduct);
 module.exports = router;

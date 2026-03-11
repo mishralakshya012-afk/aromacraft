@@ -1,24 +1,25 @@
-<%- include("partials/header") %>
-
 <h2 style="text-align:center;"><%= category %> Products</h2>
 
-<% if (products.length === 0) { %>
-  <p style="text-align:center;">No products found.</p>
-<% } else { %>
-
 <div class="product-container">
-  <% products.forEach(product => { %>
-    <div class="card">
-      <h3><%= product.name %></h3>
-      <p>₹ <%= product.price %></p>
 
-      <form action="/cart/add-to-cart/<%= product._id %>" method="POST">
-        <button>Add to Cart</button>
-      </form>
-    </div>
-  <% }) %>
+<% products.forEach(product => { %>
+
+<div class="card">
+
+<h3>
+<a href="/products/<%= product._id %>">
+<%= product.name %>
+</a>
+</h3>
+
+<p>₹ <%= product.price %></p>
+
+<a href="/products/<%= product._id %>">
+<button>View Details</button>
+</a>
+
 </div>
 
-<% } %>
+<% }) %>
 
-<%- include("partials/footer") %>
+</div>
