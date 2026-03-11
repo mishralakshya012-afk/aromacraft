@@ -101,8 +101,16 @@ app.use("/admin", require("./routes/adminRoutes"));
 // ==============================
 // Home Route
 // ==============================
-app.get("/", (req, res) => {
-    res.render("shop/index");
+const Product = require("./models/Product");
+
+app.get("/", async (req, res) => {
+
+  const products = await Product.find();
+
+  res.render("shop/index", {
+    products
+  });
+
 });
 
 // ==============================

@@ -1,94 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>AromaCraft | Premium Fragrances</title>
+<h2>All Products</h2>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<div class="container">
+<div class="row">
 
-    <style>
-        body {
-            background: #111;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-        }
+<% products.forEach(product => { %>
 
-        .navbar {
-            background: linear-gradient(90deg, #000, #1c1c1c);
-        }
+<div class="col-md-3">
 
-        .card {
-            background: #1c1c1c;
-            border: none;
-            border-radius: 15px;
-            transition: 0.3s;
-        }
+  <div class="card mb-4">
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
-        }
+    <% if(product.image){ %>
+      <img src="/uploads/<%= product.image %>" 
+           class="card-img-top"
+           style="height:200px; object-fit:cover;">
+    <% } %>
 
-        .price {
-            color: gold;
-            font-weight: bold;
-        }
+    <div class="card-body">
 
-        .btn-gold {
-            background-color: gold;
-            color: black;
-            font-weight: 600;
-            border-radius: 20px;
-        }
+      <h5 class="card-title">
+        <%= product.name %>
+      </h5>
 
-        .btn-gold:hover {
-            background-color: #e6c200;
-        }
+      <p>₹ <%= product.price %></p>
 
-        footer {
-            background: #000;
-        }
-    </style>
-</head>
-<body>
+      <a href="/products/<%= product._id %>" 
+         class="btn btn-primary">
+         View Product
+      </a>
 
-<div class="container mt-5">
-
-    <h2 class="text-center mb-5">✨ Our Premium Collection ✨</h2>
-
-    <div class="row">
-
-        <% if(products.length > 0) { %>
-            <% products.forEach(product => { %>
-
-<div class="card" style="width: 18rem; margin-bottom:20px;">
-
-  <% if(product.image){ %>
-    <img src="/uploads/<%= product.image %>" class="card-img-top" style="height:200px; object-fit:cover;">
-  <% } %>
-
-  <div class="card-body">
-
-    <h5 class="card-title"><%= product.name %></h5>
-
-    <p class="card-text">₹ <%= product.price %></p>
-
-    <a href="/products/<%= product._id %>" class="btn btn-primary">
-      View Product
-    </a>
+    </div>
 
   </div>
 
 </div>
 
 <% }) %>
-    </div>
+
 </div>
-
-<footer class="text-center text-white p-3 mt-5">
-    © 2026 AromaCraft | Crafted with Elegance
-</footer>
-
-</body>
-</html>
+</div>
