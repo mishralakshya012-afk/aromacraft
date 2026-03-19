@@ -1,0 +1,144 @@
+body{
+margin:0;
+font-family:Arial;
+}
+
+/* MAIN CONTAINER */
+
+.login-container{
+display:flex;
+height:100vh;
+}
+
+/* IMAGE */
+
+.image-section{
+width:50%;
+}
+
+.image-section img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* FORM SIDE */
+
+.form-section{
+width:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#0f0f0f;
+}
+
+/* LOGIN CARD */
+
+.login-card{
+width:350px;
+padding:40px;
+background:rgba(255,255,255,0.1);
+border-radius:10px;
+color:white;
+text-align:center;
+}
+
+/* INPUT */
+
+.login-card input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:5px;
+border:none;
+}
+
+/* BUTTON */
+
+.login-card button{
+width:100%;
+padding:12px;
+background:#d4af37;
+border:none;
+border-radius:5px;
+color:white;
+cursor:pointer;
+}
+
+/* PAGE BACKGROUND */
+
+.auth-page{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+
+background: linear-gradient(135deg,#3a0163,#382ca4,#3d04e7);
+}
+
+/* LOGIN CARD */
+
+.login-box{
+display:flex;
+
+width:850px;
+height:450px;
+
+background:white;
+
+border-radius:10px;
+
+overflow:hidden;
+
+box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* IMAGE SIDE */
+
+.image-side{
+width:50%;
+}
+
+.image-side img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+/* FORM SIDE */
+
+.form-side{
+width:50%;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+
+padding:40px;
+}
+
+/* INPUT */
+
+.form-side input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+/* BUTTON */
+
+.form-side button{
+padding:12px;
+
+background:#c8a046;
+border:none;
+
+color:white;
+
+border-radius:5px;
+
+cursor:pointer;
+}

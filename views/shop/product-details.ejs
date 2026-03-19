@@ -1,15 +1,57 @@
-<% if(product.image){ %>
-<img src="/uploads/<%= product.image %>" width="250">
-<% } %>
+<div class="container mt-5">
 
-<h2><%= product.name %></h2>
+  <div class="row">
 
-<p>Price: ₹ <%= product.price %></p>
+    <!-- LEFT: IMAGE -->
+    <div class="col-md-6">
 
-<p>Category: <%= product.category %></p>
+      <% if(product.image){ %>
+      <img src="/uploads/<%= product.image %>" 
+           class="img-fluid rounded shadow"
+           style="width:100%; height:400px; object-fit:cover;">
+      <% } %>
 
-<p>Description: <%= product.description %></p>
+    </div>
 
-<form action="/cart/add-to-cart/<%= product._id %>" method="POST">
-<button>Add to Cart</button>
+    <!-- RIGHT: DETAILS -->
+    <div class="col-md-6">
+
+      <h2 class="mb-3"><%= product.name %></h2>
+
+      <h4 class="text-success mb-3">₹ <%= product.price %></h4>
+
+      <p class="text-muted">
+        Category: <strong><%= product.category %></strong>
+      </p>
+
+      <p>
+        <%= product.description %>
+      </p>
+
+      <p>
+        <strong>Stock:</strong> 
+        <% if(product.stock > 0){ %>
+          <span class="text-success">In Stock</span>
+        <% } else { %>
+          <span class="text-danger">Out of Stock</span>
+        <% } %>
+      </p>
+
+      <!-- ADD TO CART -->
+      <% if(product.stock > 0){ %>
+      <form action="/cart/add-to-cart/<%= product._id %>" method="POST">
+  <button class="btn btn-dark btn-lg mt-3">
+    Add to Cart
+  </button>
 </form>
+      <% } else { %>
+      <button class="btn btn-secondary mt-3" disabled>
+        Out of Stock
+      </button>
+      <% } %>
+
+    </div>
+
+  </div>
+
+</div>

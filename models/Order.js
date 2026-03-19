@@ -6,6 +6,7 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
+
   items: [
     {
       productId: {
@@ -16,15 +17,31 @@ const orderSchema = new mongoose.Schema({
       price: Number
     }
   ],
+
   totalAmount: {
     type: Number,
     required: true
   },
+
+  // ✅ NEW: Delivery Address
+  deliveryAddress: {
+    type: String,
+    required: true
+  },
+
+  // ✅ NEW: Payment Method
+  paymentMethod: {
+    type: String,
+    enum: ["COD", "Online"],
+    default: "COD"
+  },
+
   status: {
     type: String,
     enum: ["Pending", "Shipped", "Delivered"],
     default: "Pending"
   }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model("Order", orderSchema);

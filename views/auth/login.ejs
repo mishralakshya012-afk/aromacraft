@@ -1,13 +1,32 @@
-<h2>Login</h2>
+<div class="auth-page">
 
-<form action="/auth/login" method="POST">
+    <div class="login-box">
 
-  <label>Email</label>
-  <input type="email" name="email" required>
+        <div class="image-side">
+            <img src="/images/candle.jpg">
+        </div>
 
-  <label>Password</label>
-  <input type="password" name="password" required>
+        <div class="form-side">
 
-  <button type="submit">Login</button>
+            <h2>Aromacraft</h2>
 
-</form>
+            <form action="/auth/login" method="POST">
+
+                <input type="email" name="email" placeholder="Email" required>
+
+                <input type="password" name="password" placeholder="Password" required>
+
+                <button type="submit">Login</button>
+
+            </form>
+
+            <p>
+                Don't have an account?
+                <a href="/register">Register</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>

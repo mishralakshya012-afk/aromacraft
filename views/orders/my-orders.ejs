@@ -1,0 +1,125 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Your Orders</h2>
+
+  <!-- 🔹 Tabs -->
+  <div class="mb-4">
+    <a href="/orders/my-orders" class="btn btn-outline-dark btn-sm me-2">All</a>
+    <a href="/orders/my-orders?status=Pending" class="btn btn-outline-warning btn-sm me-2">Pending</a>
+    <a href="/orders/my-orders?status=Delivered" class="btn btn-outline-success btn-sm">Delivered</a>
+  </div>
+
+  <% if(orders.length === 0){ %>
+
+    <!-- ✅ Empty State -->
+    <div class="text-center mt-5">
+      <h4>No Orders Yet 😔</h4>
+      <a href="/products" class="btn btn-dark mt-3">Start Shopping</a>
+    </div>
+
+  <% } else { %>
+
+    <% orders.forEach(order => { %>
+
+      <div class="card order-card mb-4 p-3">
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between flex-wrap mb-2">
+
+          <div>
+            <small class="text-muted">ORDER PLACED</small><br>
+            <%= order.createdAt.toDateString() %>
+          </div>
+
+          <div>
+            <small class="text-muted">TOTAL</small><br>
+            ₹<%= order.totalAmount %>
+          </div>
+
+          <div>
+            <small class="text-muted">STATUS</small><br>
+
+            <span class="badge 
+              <%= order.status === 'Delivered' ? 'bg-success' : 
+                  order.status === 'Cancelled' ? 'bg-danger' : 'bg-warning' %>">
+              <%= order.status %>
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- 🔥 TRACKING BAR -->
+        <div class="order-tracking mb-3">
+
+          <div class="track-step 
+            <%= ['Pending','Shipped','Delivered'].includes(order.status) ? 'active' : '' %>">
+            Order Placed
+          </div>
+
+          <div class="track-step 
+            <%= ['Shipped','Delivered'].includes(order.status) ? 'active' : '' %>">
+            Shipped
+          </div>
+
+          <div class="track-step 
+            <%= order.status === 'Delivered' ? 'active' : '' %>">
+            Delivered
+          </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Products -->
+        <% order.items.forEach(item => { %>
+
+        <div class="order-item">
+
+          <!-- LEFT -->
+          <div class="order-left">
+
+            <img 
+              src="<%= item.productId && item.productId.image 
+                ? '/uploads/' + item.productId.image 
+                : '/images/candle.jpg' %>" 
+              class="order-img"
+            >
+
+            <div class="order-details">
+              <h6><%= item.productId ? item.productId.name : "Product removed" %></h6>
+              <p>₹<%= item.price %></p>
+              <small>Qty: <%= item.quantity %></small>
+            </div>
+
+          </div>
+
+          <!-- RIGHT ACTIONS -->
+          <div class="order-actions">
+
+            <!-- Buy Again -->
+            <form action="/cart/add-to-cart/<%= item.productId ? item.productId._id : '' %>" method="POST">
+              <button class="btn btn-warning btn-sm">Buy Again</button>
+            </form>
+
+            <!-- View Product -->
+            <a href="/products/<%= item.productId ? item.productId._id : '#' %>" class="btn btn-outline-dark btn-sm">
+              View
+            </a>
+
+            <!-- Track -->
+            <button class="btn btn-dark btn-sm">Track Order</button>
+
+          </div>
+
+        </div>
+
+        <% }) %>
+
+      </div>
+
+    <% }) %>
+
+  <% } %>
+
+</div>

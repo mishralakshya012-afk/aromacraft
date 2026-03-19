@@ -1,23 +1,85 @@
-<%- include("partials/header") %>
+<div class="container mt-4">
 
-<h2>Your Cart</h2>
+  <h2 class="mb-4">Secure Checkout 🔒</h2>
 
-<% if (items.length === 0) { %>
-  <p>No items in cart.</p>
-<% } else { %>
+  <% const cart = cart || []; %>
 
-  <% items.forEach(item => { %>
-    <div class="card">
-      <h3><%= item.productId.name %></h3>
-      <p>Price: ₹ <%= item.productId.price %></p>
-      <p>Quantity: <%= item.quantity %></p>
+  <% if (cart.length === 0) { %>
+
+    <div class="text-center">
+      <h5>Your cart is empty</h5>
+      <a href="/products" class="btn btn-dark mt-3">Shop Now</a>
     </div>
-  <% }) %>
 
-  <form action="/orders/place-order" method="POST">
-    <button>Place Order</button>
-  </form>
+  <% } else { %>
 
-<% } %>
+  <div class="row">
 
-<%- include("partials/footer") %>
+    <!-- LEFT: ADDRESS + PAYMENT -->
+    <div class="col-md-6">
+
+      <form action="/orders/place-order" method="POST">
+
+        <!-- Address -->
+        <div class="mb-3">
+          <label class="form-label">Delivery Address</label>
+          <textarea 
+            name="address" 
+            class="form-control" 
+            placeholder="Enter your full address..."
+            required
+          ></textarea>
+        </div>
+
+        <!-- Payment -->
+        <div class="mb-3">
+          <label class="form-label">Payment Method</label>
+
+          <select name="paymentMethod" class="form-control">
+            <option value="COD">Cash on Delivery</option>
+            <option value="Online">Online Payment</option>
+          </select>
+        </div>
+
+        <button class="btn btn-dark w-100">
+          Place Order
+        </button>
+
+      </form>
+
+    </div>
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="col-md-6">
+
+      <div class="card p-3 shadow-sm">
+
+        <h5>Order Summary</h5>
+        <hr>
+
+        <% let total = 0; %>
+
+        <% cart.forEach(item => { 
+          total += item.price * item.qty;
+        %>
+
+        <div class="d-flex justify-content-between mb-2">
+          <span><%= item.name %> (x<%= item.qty %>)</span>
+          <span>₹<%= item.price * item.qty %></span>
+        </div>
+
+        <% }) %>
+
+        <hr>
+
+        <h5>Total: ₹<%= total %></h5>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <% } %>
+
+</div>

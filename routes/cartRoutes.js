@@ -6,7 +6,11 @@ const { isLoggedIn } = require("../middleware/authMiddleware");
 router.post("/add-to-cart/:id", isLoggedIn, cartController.addToCart);
 
 // View Cart
-router.get("/checkout", isLoggedIn, cartController.viewCart);
+router.get("/checkout", isLoggedIn, (req, res) => {
+  res.render("shop/checkout", {
+    cart: req.session.cart || []
+  });
+});
 
 // Increase / Decrease Quantity
 router.post("/increase/:id", isLoggedIn, cartController.increaseQty);

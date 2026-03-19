@@ -1,32 +1,45 @@
-<h2>All Products</h2>
+<div class="container mt-4">
 
-<div class="container">
+<h2 class="mb-4 text-center">All Products</h2>
+
 <div class="row">
 
 <% products.forEach(product => { %>
 
-<div class="col-md-3">
+<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 
-  <div class="card mb-4">
+  <div class="card h-100 shadow-sm product-card">
 
     <% if(product.image){ %>
-      <img src="/uploads/<%= product.image %>" 
-           class="card-img-top"
-           style="height:200px; object-fit:cover;">
+      <img 
+      src="/uploads/<%= product.image %>" 
+      class="card-img-top"
+      style="height:220px; object-fit:cover;">
     <% } %>
 
-    <div class="card-body">
+    <div class="card-body text-center">
 
       <h5 class="card-title">
         <%= product.name %>
       </h5>
 
-      <p>₹ <%= product.price %></p>
+      <p class="text-success fw-bold fs-5">
+        ₹ <%= product.price %>
+      </p>
 
-      <a href="/products/<%= product._id %>" 
-         class="btn btn-primary">
-         View Product
-      </a>
+      <div class="d-flex justify-content-center gap-2">
+
+        <a href="/products/<%= product._id %>" 
+        class="btn btn-outline-primary btn-sm">
+        View
+        </a>
+
+        <a href="/cart/add/<%= product._id %>" 
+        class="btn btn-primary btn-sm">
+        Add to Cart
+        </a>
+
+      </div>
 
     </div>
 
@@ -37,4 +50,5 @@
 <% }) %>
 
 </div>
+
 </div>

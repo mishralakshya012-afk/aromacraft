@@ -1,3 +1,4 @@
+/* ================= GLOBAL ================= */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -5,6 +6,11 @@ body {
   color: #333;
 }
 
+a {
+  text-decoration: none;
+}
+
+/* ================= NAVBAR ================= */
 nav {
   background: #111;
   padding: 15px 40px;
@@ -15,20 +21,23 @@ nav {
 
 nav a {
   color: white;
-  text-decoration: none;
   margin-left: 20px;
+  font-weight: 500;
 }
 
 nav a:hover {
   color: #d4af37;
 }
 
+/* ================= CONTAINER ================= */
 .container {
-  width: 90%;
+  width: 100%;
+  max-width: 1100px;
   margin: auto;
-  padding: 40px 0;
+  padding: 30px 15px;
 }
 
+/* ================= HERO ================= */
 .hero {
   background: url('/images/hero.jpg') center/cover no-repeat;
   height: 400px;
@@ -37,86 +46,166 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
 }
 
 .hero h1 {
+  position: relative;
+  z-index: 2;
   font-size: 3rem;
-  background: rgba(0,0,0,0.6);
   padding: 20px;
 }
 
+/* ================= BUTTON ================= */
+button,
+.btn-custom {
+  background: #d4af37;
+  border: none;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover,
+.btn-custom:hover {
+  background: #b9962f;
+}
+
+/* ================= GENERAL CARD ================= */
 .card {
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
-  margin: 15px;
-  width: 250px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
-.card img {
+/* ================= PRODUCT SECTION ================= */
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.product-card {
+  width: 250px;
+}
+
+.product-card img {
   width: 100%;
   height: 200px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-button {
-  background: #d4af37;
-  border: none;
-  padding: 10px 15px;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #b9962f;
-}
-
-footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-.category-container,
-.product-container {
+/* ================= CATEGORY ================= */
+.category-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  margin-top: 20px;
 }
 
-.card {
-  border: 1px solid #ddd;
+/* ================= ORDER PAGE ================= */
+.order-card {
+  width: 100%;
+  max-width: 900px;
+  margin: 20px auto;
   padding: 20px;
-  width: 220px;
-  text-align: center;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.order-status {
+  background: #ffc107;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* ORDER ITEM */
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  background: #fff;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
-.card button {
-  padding: 8px 15px;
-  border: none;
-  background-color: #333;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+.order-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.card button:hover {
-  background-color: #555;
+.order-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
+.order-details h6 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.order-details p {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
+}
+
+/* RIGHT SIDE BUTTONS */
+.order-actions {
+  text-align: right;
+}
+
+.order-actions a,
+.order-actions button {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  padding: 6px 10px;
+}
+
+/* ================= TABLE ================= */
+table img {
+  transition: 0.3s;
+}
+
+table img:hover {
+  transform: scale(1.1);
+}
+
+/* ================= SIDEBAR ================= */
 .sidebar .collapse a {
   font-size: 14px;
   padding-left: 40px;
@@ -124,4 +213,130 @@ footer {
 
 .sidebar .collapse a:hover {
   background: #475569;
+}
+
+/* ================= IMAGE EFFECT ================= */
+img {
+  max-width: 100%;
+  height: auto;
+  transition: 0.3s;
+}
+
+img:hover {
+  transform: scale(1.02);
+}
+
+/* ================= FOOTER ================= */
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-actions {
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Active Navbar */
+nav a.active {
+  color: #d4af37;
+  font-weight: bold;
+}
+
+/* Order Hover Effect */
+.order-card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+
+/* Order Layout */
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.order-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.order-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.order-actions button,
+.order-actions a {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* ===== TRACKING BAR ===== */
+.order-tracking {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.track-step {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-bottom: 3px solid #ddd;
+  color: #aaa;
+  font-size: 14px;
+  position: relative;
+}
+
+.track-step.active {
+  border-color: #28a745;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Connector line */
+.track-step::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: #ddd;
+  z-index: -1;
+}
+
+.track-step:last-child::after {
+  display: none;
 }

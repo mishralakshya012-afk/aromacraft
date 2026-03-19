@@ -1,13 +1,53 @@
-<div class="container text-center mt-5">
+<!-- HERO SECTION -->
+<div class="hero-section d-flex align-items-center justify-content-center text-center text-white">
 
-<h1>Welcome to AromaCraft</h1>
+  <div>
+    <h1 class="display-4 fw-bold">Welcome to AromaCraft</h1>
+    <p class="lead">Handcrafted Candles & Epoxy Creations</p>
+    <a href="/products" class="btn btn-warning btn-lg mt-3">
+      Shop Now
+    </a>
+  </div>
 
-<p>Discover premium candels, paintings & rasin art</p>
+</div>
 
-<a href="/products">
-<button class="btn btn-primary btn-lg">
-Shop Now
-</button>
-</a>
+<!-- FEATURED PRODUCTS -->
+<div class="container mt-5">
+
+  <h2 class="mb-4 text-center">Featured Products</h2>
+
+  <div class="row">
+
+    <% products.forEach(product => { %>
+
+    <div class="col-md-3">
+
+      <div class="card mb-4 shadow-sm product-card">
+
+        <% if(product.image){ %>
+        <img src="/uploads/<%= product.image %>" 
+             class="card-img-top"
+             style="height:200px; object-fit:cover;">
+        <% } %>
+
+        <div class="card-body text-center">
+
+          <h5><%= product.name %></h5>
+          <p class="text-muted">₹ <%= product.price %></p>
+
+          <a href="/products/<%= product._id %>" 
+             class="btn btn-dark btn-sm">
+            View Product
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <% }) %>
+
+  </div>
 
 </div>

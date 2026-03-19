@@ -75,6 +75,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Make user available in all views
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
+     res.locals.url = req.originalUrl; 
     next();
 });
 
@@ -112,6 +113,20 @@ app.get("/", async (req, res) => {
   });
 
 });
+
+
+// ==============================
+// Auth Pages
+// ==============================
+
+app.get("/login", (req, res) => {
+  res.render("auth/login");
+});
+
+app.get("/register", (req, res) => {
+  res.render("auth/register");
+});
+
 
 // ==============================
 // 404 Page
