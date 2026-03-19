@@ -62,7 +62,7 @@ exports.increaseQty = (req, res) => {
 
   if (item) item.qty += 1;
 
-  res.redirect("/cart/checkout");
+  res.redirect("/cart");
 
 };
 
@@ -79,7 +79,7 @@ exports.decreaseQty = (req, res) => {
     item.qty -= 1;
   }
 
-  res.redirect("/cart/checkout");
+  res.redirect("/cart");
 
 };
 
@@ -93,16 +93,15 @@ exports.removeItem = (req, res) => {
     item => item.productId !== id
   );
 
-  res.redirect("/cart/checkout");
+  res.redirect("/cart");
 
 };
-
 
 // Clear Cart
 exports.clearCart = (req, res) => {
 
   req.session.cart = [];
 
-  res.redirect("/cart/checkout");
+  res.redirect("/cart");
 
 };

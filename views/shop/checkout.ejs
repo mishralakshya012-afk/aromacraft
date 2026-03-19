@@ -2,9 +2,9 @@
 
   <h2 class="mb-4">Secure Checkout 🔒</h2>
 
-  <% const cart = cart || []; %>
+  <% const cartData = cart || []; %>
 
-  <% if (cart.length === 0) { %>
+  <% if (cartData.length === 0) { %>
 
     <div class="text-center">
       <h5>Your cart is empty</h5>
@@ -59,7 +59,7 @@
 
         <% let total = 0; %>
 
-        <% cart.forEach(item => { 
+        <% cartData.forEach(item => { 
           total += item.price * item.qty;
         %>
 

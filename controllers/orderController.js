@@ -1,3 +1,4 @@
+const razorpay = require("../config/razorpay");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 
@@ -26,7 +27,30 @@ exports.placeOrder = async (req, res) => {
       };
     });
 
-    // ✅ Reduce stock
+    // =========================
+    // 💳 ONLINE PAYMENT FLOW
+    // =========================
+    if (req.body.paymentMethod === "Online") {
+
+      const razorpayOrder = await razorpay.orders.create({
+        amount: totalAmount * 100, // paise
+        currency: "INR",
+        receipt: "order_" + Date.now()
+      });
+
+      return res.render("shop/razorpay-checkout", {
+        key: process.env.RAZORPAY_KEY_ID,
+        amount: razorpayOrder.amount,
+        order_id: razorpayOrder.id,
+        address: req.body.address
+      });
+    }
+
+    // =========================
+    // 💵 COD FLOW (existing)
+    // =========================
+
+    // Reduce stock
     for (let item of cart) {
       await Product.updateOne(
         { _id: item.productId },
@@ -34,19 +58,16 @@ exports.placeOrder = async (req, res) => {
       );
     }
 
-    // ✅ Create Order with address + payment
-    const order = await Order.create({
+    await Order.create({
       userId: req.session.user._id,
       items: orderItems,
       totalAmount,
       deliveryAddress: req.body.address,
-      paymentMethod: req.body.paymentMethod
+      paymentMethod: "COD"
     });
 
-    // ✅ Clear cart
     req.session.cart = [];
 
-    // ✅ Redirect instead of plain success page
     res.redirect("/orders/my-orders");
 
   } catch (err) {
@@ -78,4 +99,55 @@ exports.getMyOrders = async (req, res) => {
     console.log(err);
     res.send("Error loading orders");
   }
+};
+
+// ============================
+// Razorpay Payment Success
+// ============================
+exports.paymentSuccess = async (req, res) => {
+
+  try {
+
+    const cart = req.session.cart || [];
+
+    let totalAmount = 0;
+
+    const orderItems = cart.map(item => {
+      totalAmount += item.price * item.qty;
+
+      return {
+        productId: item.productId,
+        quantity: item.qty,
+        price: item.price
+      };
+    });
+
+    // ✅ Reduce stock
+    for (let item of cart) {
+      await Product.updateOne(
+        { _id: item.productId },
+        { $inc: { stock: -item.qty } }
+      );
+    }
+
+    // ✅ Save order AFTER payment success
+    await Order.create({
+      userId: req.session.user._id,
+      items: orderItems,
+      totalAmount,
+      deliveryAddress: req.body.address,
+      paymentMethod: "Online",
+      status: "Pending"
+    });
+
+    // ✅ Clear cart
+    req.session.cart = [];
+
+    res.json({ success: true });
+
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false });
+  }
+
 };

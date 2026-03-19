@@ -2,15 +2,18 @@ const router = require("express").Router();
 const cartController = require("../controllers/cartController");
 const { isLoggedIn } = require("../middleware/authMiddleware");
 
-// Add to Cart
-router.post("/add-to-cart/:id", isLoggedIn, cartController.addToCart);
+// 🛒 View Cart Page
+router.get("/", isLoggedIn, cartController.viewCart);
 
-// View Cart
+// 🛒 Checkout Page
 router.get("/checkout", isLoggedIn, (req, res) => {
   res.render("shop/checkout", {
     cart: req.session.cart || []
   });
 });
+
+// Add to Cart
+router.post("/add-to-cart/:id", isLoggedIn, cartController.addToCart);
 
 // Increase / Decrease Quantity
 router.post("/increase/:id", isLoggedIn, cartController.increaseQty);
