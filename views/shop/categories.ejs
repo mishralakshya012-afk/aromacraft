@@ -12,13 +12,22 @@
 <% } %>
 
 <div class="category-container">
+
   <% categories.forEach(cat => { %>
-    <div class="card">
-      <h3><%= cat %></h3>
-      <a href="/products/category/<%= cat %>">
-        <button>View Products</button>
-      </a>
-    </div>
+
+    <a href="/products/category/<%= cat.name %>" class="category-card">
+
+      <!-- IMAGE -->
+      <img src="/images/categories/<%= cat.image %>" alt="<%= cat.name %>">
+
+      <!-- OVERLAY -->
+      <div class="category-overlay">
+        <h3><%= cat.name %></h3>
+      </div>
+
+    </a>
+
   <% }) %>
+
 </div>
 

@@ -1,0 +1,16 @@
+<div class="container mt-5">
+
+  <h2>Track Order</h2>
+
+  <p><strong>Order ID:</strong> <%= order._id %></p>
+  <p><strong>Status:</strong> <%= order.status %></p>
+
+  <div class="progress mt-4">
+    <div class="progress-bar 
+      <%= order.status === 'Delivered' ? 'bg-success w-100' :
+          order.status === 'Shipped' ? 'bg-info w-75' :
+          'bg-warning w-50' %>">
+    </div>
+  </div>
+
+</div>

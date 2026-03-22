@@ -151,3 +151,12 @@ exports.paymentSuccess = async (req, res) => {
   }
 
 };
+
+exports.trackOrder = async (req, res) => {
+
+  const order = await Order.findById(req.params.id)
+    .populate("items.productId");
+
+  res.render("orders/track-order", { order });
+
+};

@@ -3,12 +3,26 @@ const Product = require("../models/Product");
 // Show categories
 exports.getCategories = async (req, res) => {
 
-  const categories = await Product.distinct("category");
+  const categoryNames = await Product.distinct("category");
+
+  // ✅ attach images to each category
+  const categories = categoryNames.map(cat => {
+
+    let image = "default.jpg";
+
+    if (cat.toLowerCase() === "candles") image = "candles.jpg";
+    else if (cat.toLowerCase() === "paintings") image = "paintings.jpg";
+    else if (cat.toLowerCase() === "resin art") image = "resin.jpg";
+
+    return {
+      name: cat,
+      image
+    };
+  });
 
   res.render("shop/categories", { categories });
 
 };
-
 
 // Products by category
 exports.getProductsByCategory = async (req, res) => {

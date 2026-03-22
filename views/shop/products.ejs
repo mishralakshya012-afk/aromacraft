@@ -34,10 +34,11 @@
         View
         </a>
 
-        <a href="/cart/add/<%= product._id %>" 
-        class="btn btn-primary btn-sm">
-        Add to Cart
-        </a>
+        <form action="/cart/add-to-cart/<%= product._id %>" method="POST">
+  <button class="btn btn-success btn-sm mt-2 w-100">
+    Add to Cart
+  </button>
+</form>
 
       </div>
 

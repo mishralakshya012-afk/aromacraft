@@ -41,37 +41,37 @@
       </ul>
 
       <ul class="navbar-nav">
-      <a href="/cart">Cart</a>
-        <li class="nav-item">
-       
-        </li>
 
-        <% if(user){ %>
+  <li class="nav-item">
+    <a class="nav-link" href="/cart">🛒 Cart</a>
+  </li>
 
-        <li class="nav-item">
-          <a href="/orders/my-orders" class="nav-link <%= url.includes('orders') ? 'active' : '' %>">
-  My Orders
-</a>
-        </li>
+  <% if(user){ %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/logout">Logout</a>
-        </li>
+  <li class="nav-item">
+    <a href="/orders/my-orders" 
+       class="nav-link <%= url.includes('orders') ? 'active' : '' %>">
+      My Orders
+    </a>
+  </li>
 
-        <% } else { %>
+  <li class="nav-item">
+    <a class="nav-link" href="/auth/logout">Logout</a>
+  </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
-        </li>
+  <% } else { %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/register">Register</a>
-        </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/auth/login">Login</a>
+  </li>
 
-        <% } %>
+  <li class="nav-item">
+    <a class="nav-link" href="/auth/register">Register</a>
+  </li>
 
-      </ul>
+  <% } %>
 
+</ul>
     </div>
 
   </div>

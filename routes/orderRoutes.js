@@ -8,5 +8,7 @@ router.post("/place-order", isLoggedIn, orderController.placeOrder);
 
 // My Orders Page
 router.get("/my-orders", isLoggedIn, orderController.getMyOrders);
+ 
+router.get("/track/:id", isLoggedIn, orderController.trackOrder);
 
 module.exports = router;
