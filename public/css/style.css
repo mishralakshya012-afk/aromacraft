@@ -37,7 +37,7 @@ body::before {
   inset: 0;
 
   background: 
-    radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+    radial-gradient(circle, rgba(251, 68, 68, 0.862) 1px, transparent 1px);
   background-size: 60px 60px;
 
   opacity: 0.3;
@@ -49,11 +49,12 @@ nav {
   align-items: center;
   justify-content: space-between;
 
-  padding: 8px 20px;   /* 🔥 reduced vertical height */
-  background: rgba(255, 255, 255, 0.6);
+ background: linear-gradient(90deg, #3a2f2f, #6b4f4f);
+  padding: 8px 20px;
   backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 
-  border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 /* left + right groups */
@@ -69,15 +70,15 @@ nav span,
 nav form {
   display: flex;
   align-items: center;
-  color: var(--dark);
-  font-weight: 500;
+  color: #fff;
+  font-weight: 800;
   font-size: 14px;
   line-height: 1;
 }
 
 nav a:hover,
 nav a.active {
-  color: var(--primary);
+  color: #d4af37;
 }
 
 nav form {
@@ -312,7 +313,7 @@ button:hover,
 
 /* ================= FOOTER ================= */
 footer {
-  background: rgba(0,0,0,0.8);
+  background: linear-gradient(135deg, #dab396, #9168c3, #5aeedd);
   color: white;
   text-align: center;
   padding: 20px;
@@ -341,4 +342,15 @@ footer {
   nav {
     flex-wrap: wrap;
   }
+}
+
+.product-description {
+  line-height: 1.8;
+  font-size: 15px;
+  color: #555;
+  white-space: normal;
+}
+
+.product-description br {
+  margin-bottom: 6px;
 }
