@@ -1,62 +1,55 @@
-# 🌿 AromaCraft – Handmade Candles E-Commerce Website
+# 🌿 AromaCraft - E-commerce Web Application
 
-AromaCraft is a full-stack E-Commerce web application built using 
-Node.js, Express.js, MongoDB, and EJS. 
-
-It allows users to browse products, add them to cart, and place orders.
-Admin users can add new products to the store.
+## 📌 Project Overview
+AromaCraft is a full-stack e-commerce web application designed for selling aromatic and wellness products. It provides users with a smooth shopping experience including browsing products, adding items to cart, and secure checkout.
 
 ---
 
-## 🚀 Tech Stack
+## 🚀 Features
 
-- Backend: Node.js
-- Framework: Express.js
-- Database: MongoDB Atlas
-- Template Engine: EJS
-- Authentication: Express-Session
-- Environment Config: dotenv
+### 👤 User Features
+- Browse products by category
+- View product details
+- Add to cart
+- Update cart quantity
+- Checkout system
+
+### 🔐 Admin Features
+- Admin dashboard
+- Add / Edit / Delete products
+- Manage orders
+- User management
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** EJS, HTML, CSS, JavaScript  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB (Mongoose)  
+- **Authentication:** Sessions / Cookies  
+- **Payment Integration:** Razorpay (if implemented)  
+- **File Upload:** Multer  
 
 ---
 
 ## 📂 Project Structure
+aromacraft/
+│── controllers/ # Business logic
+│── models/ # Database schemas
+│── routes/ # Application routes
+│── views/ # EJS templates
+│── public/ # Static files (CSS, JS, images)
+│── config/ # Configuration files
+│── middleware/ # Custom middleware
+│── app.js # Main server file
 
-AromaCraft/
-│
-├── controllers/
-├── models/
-├── routes/
-├── middleware/
-├── views/
-├── public/
-│
-├── server.js
-├── package.json
-├── package-lock.json
-├── .env
-└── README.md
 
 ---
 
-## ✨ Features
+## ⚙️ Installation & Setup
 
-✔ User Registration & Login  
-✔ Session-based Authentication  
-✔ Product Listing  
-✔ Admin Product Management  
-✔ Add to Cart  
-✔ Increase/Decrease Quantity  
-✔ Remove Items  
-✔ Place Order  
-✔ Stock Management  
-✔ Order Success Page  
-
----
-
-## ⚙️ Installation
-
-1️⃣ Clone the repository
-
+### 1️⃣ Clone the repository
 ```bash
-git clone <your-repo-link>
-cd AromaCraft
+git clone https://github.com/mishralakshya012-afk/aromacraft.git
+cd aromacraft

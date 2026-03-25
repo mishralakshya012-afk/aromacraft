@@ -9,10 +9,15 @@ const storage = multer.diskStorage({
     cb(null, "public/uploads");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+
+    // 🔥 CLEAN NAME (REMOVE SPACES & SPECIAL CHARS)
+    const cleanName = file.originalname
+      .replace(/\s+/g, "-")          // replace spaces
+      .replace(/[^\w.-]/g, "");     // remove special chars
+
+    cb(null, Date.now() + "-" + cleanName);
   }
 });
-
 const upload = multer({ storage });
 
 // Admin routes
