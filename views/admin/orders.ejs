@@ -1,20 +1,122 @@
+<h2 class="mb-4">Orders Management</h2>
 
-<h2>Orders</h2>
+<!-- 🔥 STATS -->
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card bg-dark text-white p-3">
+      <h6>Total Orders</h6>
+      <h3><%= totalOrders %></h3>
+    </div>
+  </div>
 
-<table class="table">
+  <div class="col-md-4">
+    <div class="card bg-success text-white p-3">
+      <h6>Total Revenue</h6>
+      <h3>₹ <%= totalRevenue %></h3>
+    </div>
+  </div>
 
-<tr>
-<th>User</th>
-<th>Total</th>
-</tr>
+  <div class="col-md-4">
+    <div class="card bg-warning text-dark p-3">
+      <h6>Pending Orders</h6>
+      <h3><%= pendingOrders %></h3>
+    </div>
+  </div>
+</div>
 
-<% orders.forEach(order => { %>
+<!-- 🔍 SEARCH + FILTER -->
+<form method="GET" class="row mb-3">
+  <div class="col-md-4">
+    <input 
+      type="text" 
+      name="search" 
+      value="<%= search || '' %>"
+      class="form-control"
+      placeholder="Search by Order ID or User">
+  </div>
 
-<tr>
-<td><%= order.user %></td>
-<td>₹ <%= order.total %></td>
-</tr>
+  <div class="col-md-3">
+    <select name="status" class="form-control">
+      <option value="">All Status</option>
+      <option value="Pending" <%= status==='Pending'?'selected':'' %>>Pending</option>
+      <option value="Shipped" <%= status==='Shipped'?'selected':'' %>>Shipped</option>
+      <option value="Delivered" <%= status==='Delivered'?'selected':'' %>>Delivered</option>
+    </select>
+  </div>
 
-<% }) %>
+  <div class="col-md-2">
+    <button class="btn btn-dark w-100">Apply</button>
+  </div>
+</form>
 
+<!-- 📦 ORDERS TABLE -->
+<table class="table table-bordered table-hover shadow">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Date</th>
+      <th>Total</th>
+      <th>Payment</th>
+      <th>Status</th>
+      <th>Update</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if(orders.length > 0){ %>
+
+      <% orders.forEach(order => { %>
+        <tr>
+          <td><%= order._id.toString().slice(-6).toUpperCase() %></td>
+
+          <td><%= order.userId ? order.userId.name : "Unknown" %></td>
+
+          <td><%= order.createdAt.toDateString() %></td>
+
+          <td>₹ <%= order.totalAmount %></td>
+
+          <td>
+            <span class="badge bg-info">
+              <%= order.paymentMethod %>
+            </span>
+          </td>
+
+          <td>
+            <span class="badge 
+              <%= order.status === 'Delivered' ? 'bg-success' :
+                  order.status === 'Shipped' ? 'bg-primary' :
+                  'bg-warning text-dark' %>">
+              <%= order.status %>
+            </span>
+          </td>
+
+          <!-- 🔄 UPDATE STATUS -->
+          <td>
+            <form action="/admin/update-status/<%= order._id %>" method="POST">
+              <select name="status" class="form-select form-select-sm">
+                <option <%= order.status==='Pending'?'selected':'' %>>Pending</option>
+                <option <%= order.status==='Shipped'?'selected':'' %>>Shipped</option>
+                <option <%= order.status==='Delivered'?'selected':'' %>>Delivered</option>
+              </select>
+              <button class="btn btn-sm btn-success mt-1 w-100">Update</button>
+            </form>
+          </td>
+
+          <td>
+            <a href="/orders/track/<%= order._id %>" 
+               class="btn btn-dark btn-sm">
+              View
+            </a>
+          </td>
+        </tr>
+      <% }) %>
+
+    <% } else { %>
+      <tr>
+        <td colspan="8" class="text-center">No orders found</td>
+      </tr>
+    <% } %>
+  </tbody>
 </table>

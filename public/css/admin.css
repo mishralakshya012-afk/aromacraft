@@ -1,7 +1,78 @@
-body{
-    background:#f5f5f5;
+/* =============================
+   ADMIN PANEL - LIGHT PREMIUM UI
+============================= */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  margin: 0;
+  background: #f8f9fa;
 }
 
-.admin-sidebar{
-    width:220px;
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #ffffff;
+  border-right: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.sidebar h4 {
+  font-weight: 600;
+}
+
+/* LINKS */
+.sidebar a {
+  display: block;
+  padding: 12px 20px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  margin: 5px 10px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: #000;
+  color: #fff;
+}
+
+.sidebar a.active {
+  background: #000;
+  color: #fff;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* CARDS */
+.card {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* TABLE */
+.table {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* BUTTON */
+.btn {
+  border-radius: 8px;
+}
+
+/* HEADINGS */
+h2 {
+  font-weight: 600;
 }

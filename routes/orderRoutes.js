@@ -11,4 +11,6 @@ router.get("/my-orders", isLoggedIn, orderController.getMyOrders);
  
 router.get("/track/:id", isLoggedIn, orderController.trackOrder);
 
+router.post("/cancel/:id", isLoggedIn, orderController.cancelOrder);
+
 module.exports = router;

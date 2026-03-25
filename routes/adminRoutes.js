@@ -23,6 +23,7 @@ function isAdmin(req, res, next) {
 router.get("/dashboard", isAdmin, adminController.getDashboard);
 router.get("/products", isAdmin, adminController.getProducts);
 router.get("/orders", isAdmin, adminController.getOrders);
+router.post("/update-status/:id", isAdmin, adminController.updateStatus);
 router.get("/users", isAdmin, adminController.getUsers);
 router.get("/add-product", isAdmin, adminController.getAddProduct);
 router.get("/edit-product/:id", isAdmin, adminController.getEditProduct);

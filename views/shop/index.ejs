@@ -15,7 +15,9 @@
       <% products.slice(0,4).forEach(p => { %>
 
         <div class="featured-card">
-         <img src="/uploads/<%= encodeURIComponent(p.image) %>" alt="product">
+         <img 
+          src="<%= p.image ? '/uploads/' + p.image : '/images/candle.jpg' %>"
+>
           <h5><%= p.name %></h5>
           <p>₹ <%= p.price %></p>
 

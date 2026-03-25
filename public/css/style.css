@@ -354,3 +354,12 @@ footer {
 .product-description br {
   margin-bottom: 6px;
 }
+
+/* CART IMAGE FIX */
+.cart-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;   /* 🔥 prevents stretching */
+  border-radius: 8px;
+  border: 1px solid #eee;
+}

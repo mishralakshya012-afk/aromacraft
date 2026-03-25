@@ -160,3 +160,26 @@ exports.trackOrder = async (req, res) => {
   res.render("orders/track-order", { order });
 
 };
+
+// ============================
+// Cancel Order
+// ============================
+exports.cancelOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+
+    // ❌ Prevent cancel if delivered
+    if (order.status === "Delivered") {
+      return res.redirect("/orders/my-orders");
+    }
+
+    order.status = "Cancelled";
+    await order.save();
+
+    res.redirect("/orders/my-orders");
+
+  } catch (err) {
+    console.log(err);
+    res.send("Cancel error");
+  }
+};

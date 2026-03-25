@@ -63,22 +63,65 @@ exports.getProducts = async (req, res) => {
 
 // ================= ORDERS =================
 exports.getOrders = async (req, res) => {
-
   try {
+    const { status, search } = req.query;
 
-    const ordersData = await Order.find().populate("userId");
+    let filter = {};
 
-    const orders = ordersData.map(order => ({
-      user: order.userId ? order.userId.name : "Unknown",
-      total: order.totalAmount
-    }));
+    if (status) {
+      filter.status = status;
+    }
 
-    res.render("admin/orders", { orders });
+    let orders = await Order.find(filter)
+      .populate("userId")
+      .sort({ createdAt: -1 });
+
+    // ✅ Search
+    if (search) {
+      orders = orders.filter(order =>
+        order._id.toString().includes(search) ||
+        (order.userId &&
+          order.userId.name.toLowerCase().includes(search.toLowerCase()))
+      );
+    }
+
+    // ✅ Stats (THIS WAS MISSING ❗)
+    const totalOrders = orders.length;
+
+    let totalRevenue = 0;
+    let pendingOrders = 0;
+
+    orders.forEach(order => {
+      totalRevenue += order.totalAmount;
+      if (order.status === "Pending") pendingOrders++;
+    });
+
+    // ✅ SEND ALL VARIABLES
+    res.render("admin/orders", {
+      orders,
+      totalOrders,
+      totalRevenue,
+      pendingOrders,
+      status,
+      search
+    });
 
   } catch (err) {
     console.log(err);
+    res.send("Orders Error");
   }
+};
+// ================= Update status =================
+exports.updateStatus = async (req, res) => {
+  try {
+    await Order.findByIdAndUpdate(req.params.id, {
+      status: req.body.status
+    });
 
+    res.redirect("/admin/orders");
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // ================= USERS =================

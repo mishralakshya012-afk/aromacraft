@@ -1,54 +1,21 @@
-
-<h2>Products</h2>
-
-<a href="/admin/add-product" class="btn btn-success mb-3">
-Add Product
-</a>
+<h2>Users</h2>
 
 <table class="table">
-<thead>
-<tr>
-<th>Image</th>
-<th>Name</th>
-<th>Category</th>
-<th>Price</th>
-<th>Stock</th>
-<th>Actions</th>
-</tr>
-</thead>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+    </tr>
+  </thead>
 
-<tbody>
-<% products.forEach(product => { %>
-<tr>
-<td><%= product.name %></td>
-<td>₹ <%= product.price %></td>
-</tr>
-
-<td>
-<img src="/uploads/<%= product.image %>" width="60">
-</td>
-
-<td><%= product.name %></td>
-
-<td><%= product.category %></td>
-
-<td>₹ <%= product.price %></td>
-
-<td><%= product.stock %></td>
-
-<td>
-
-<a href="/admin/edit-product/<%= product._id %>" class="btn btn-warning btn-sm">
-Edit
-</a>
-
-<a href="/admin/delete-product/<%= product._id %>" class="btn btn-danger btn-sm">
-Delete
-</a>
-
-</td>
-
-</tr>
-<% }) %>
-</tbody>
+  <tbody>
+    <% users.forEach(user => { %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+      </tr>
+    <% }) %>
+  </tbody>
 </table>

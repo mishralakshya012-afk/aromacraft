@@ -31,9 +31,11 @@
         <td class="d-flex align-items-center gap-3">
 
           <% if(item.image){ %>
-          <img src="/uploads/<%= item.image %>" 
-               width="60" height="60"
-               style="object-fit:cover; border-radius:5px;">
+             <img 
+               src="<%= item.image ? '/uploads/' + item.image : '/images/candle.jpg' %>"
+               class="cart-img"
+               >
+              
           <% } %>
 
           <span><%= item.name %></span>

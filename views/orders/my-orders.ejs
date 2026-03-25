@@ -109,8 +109,17 @@
 
             <!-- Track -->
            <a href="/orders/track/<%= order._id %>" class="btn btn-dark btn-sm">
-  Track Order
-</a>
+           Track Order
+           </a>
+            
+           <% if(order.status !== "Delivered" && order.status !== "Cancelled"){ %>
+            <form action="/orders/cancel/<%= order._id %>" method="POST">
+             <button class="btn btn-danger btn-sm">
+               Cancel Order
+             </button>
+           </form>
+           <% } %>
+
           </div>
 
         </div>

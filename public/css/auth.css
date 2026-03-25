@@ -39,7 +39,7 @@ width:350px;
 padding:40px;
 background:rgba(255,255,255,0.1);
 border-radius:10px;
-color:white;
+color:linear-gradient(135deg, #e7c9b2, #9f87bc, #81bcb5);
 text-align:center;
 }
 
@@ -61,7 +61,7 @@ padding:12px;
 background:#d4af37;
 border:none;
 border-radius:5px;
-color:white;
+color:rgb(200, 103, 190);
 cursor:pointer;
 }
 
@@ -73,7 +73,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-background: linear-gradient(135deg,#3a0163,#382ca4,#3d04e7);
+background: linear-gradient(135deg, #dab396, #9168c3, #5aeedd);
 }
 
 /* LOGIN CARD */
